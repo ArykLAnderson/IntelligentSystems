@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="windows64">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/../windows64" />
+    </CLASSES>
+    <JAVADOC />
+    <NATIVE>
+      <root url="file://$PROJECT_DIR$/../windows64" />
+    </NATIVE>
+    <SOURCES />
+    <jarDirectory url="file://$PROJECT_DIR$/../windows64" recursive="false" />
+  </library>
+</component>
