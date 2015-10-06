@@ -19,7 +19,7 @@ public class CS480Task1Template
       Viewer viewer = new Viewer("test_track.trk");
       for(Position position : positions) {
          viewer.doAddEvent("bird", position.getLocation().X(), position.getLocation().Y(), position.getLocation().Z(), 0, 0, 0);
-         viewer.doAdvanceEventClock(50);
+         viewer.doAdvanceEventClock(100);
       }
       //new CS480Task1Template();
    }

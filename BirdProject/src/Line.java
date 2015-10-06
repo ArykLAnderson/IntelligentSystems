@@ -24,15 +24,15 @@ public class Line {
     }
 
     public Line unitVector() {
-        return new Line(new Point(0,0,0), new Point((_endPoint.X() - _startPoint.X())/this.length(),
+        return new Line(new Point(0,0,0, true), new Point((_endPoint.X() - _startPoint.X())/this.length(),
                                                     (_endPoint.Y() - _startPoint.Y())/this.length(),
-                                                    (_endPoint.Z() - _startPoint.Z())/this.length()));
+                                                    (_endPoint.Z() - _startPoint.Z())/this.length(), true));
     }
 
     public Line vector() {
-        return new Line(new Point(0,0,0), new Point(_endPoint.X() - _startPoint.X(),
+        return new Line(new Point(0,0,0, true), new Point(_endPoint.X() - _startPoint.X(),
                                                     _endPoint.Y() - _startPoint.Y(),
-                                                    _endPoint.Z() - _startPoint.Z()));
+                                                    _endPoint.Z() - _startPoint.Z(), true));
     }
 
     public double length() {

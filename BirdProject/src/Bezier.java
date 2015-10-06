@@ -45,7 +45,7 @@ public class Bezier {
         for (int i = 0; i <= _numLines; i++) {
             targetPoints.add(new Point(((_random.nextDouble() * 1000) - 500),
                                        ((_random.nextDouble() * 500)),
-                                       ((_random.nextDouble() * 1000) - 500)));
+                                       ((_random.nextDouble() * 1000) - 500), true));
         }
 
         ArrayList<Point> positions = new ArrayList<>();
@@ -69,7 +69,7 @@ public class Bezier {
                 double y = wLine.startPoint().Y() + vector.endPoint().Y()*stepSizeActual*j;
                 double z = wLine.startPoint().Z() + vector.endPoint().Z()*stepSizeActual*j;
 
-                positions.add(new Point(x, y, z));
+                positions.add(new Point(x, y, z, false));
             }
             positions.add(end);
         }
@@ -109,9 +109,13 @@ public class Bezier {
         for (int i = 0; i < points.size(); i++) {
 
             Point oldPoint = points.get(i);
+
+            if (oldPoint.isEndpoint())
+                continue;
+
             Point newPoint = new Point(oldPoint.X() + _random.nextGaussian() * _degree,
                                        oldPoint.Y() + _random.nextGaussian() * _degree,
-                                       oldPoint.Z() + _random.nextGaussian() * _degree);
+                                       oldPoint.Z() + _random.nextGaussian() * _degree, false);
 
             points.set(i, newPoint);
         }
@@ -149,7 +153,7 @@ public class Bezier {
         double y = getCoordinate(sy, my, ey, t);
         double z = getCoordinate(sz, mz, ez, t);
 
-        return new Point(x, y, z);
+        return new Point(x, y, z, false);
     }
 
     private double getCoordinate(double start, double mid, double end, double t) {
