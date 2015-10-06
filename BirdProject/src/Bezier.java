@@ -44,8 +44,8 @@ public class Bezier {
         ArrayList<Point> targetPoints = new ArrayList<>();
         for (int i = 0; i <= _numLines; i++) {
             targetPoints.add(new Point(((_random.nextDouble() * 1000) - 500),
-                                       ((_random.nextDouble() * 1000) - 500),
-                                       ((_random.nextDouble() * 500))));
+                                       ((_random.nextDouble() * 500)),
+                                       ((_random.nextDouble() * 1000) - 500)));
         }
 
         ArrayList<Point> positions = new ArrayList<>();

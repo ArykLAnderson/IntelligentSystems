@@ -6,17 +6,25 @@ import java.util.ArrayList;
 public class CS480Task1Template
 {
    // ---------------------------------------------------------------------------------------------------------------------------------------------------------
+   private final Viewer _viewer;
+
    public static void main(final String[] args)
    {
-      Bezier generator = new Bezier(10, 10, true, 2);
+      Bezier generator = new Bezier(10, 100, true, 15);
       ArrayList<Position> positions = generator.generateCurve();
       for(Position position : positions) {
          System.out.println(position);
       }
+
+      Viewer viewer = new Viewer("test_track.trk");
+      for(Position position : positions) {
+         viewer.doAddEvent("bird", position.getLocation().X(), position.getLocation().Y(), position.getLocation().Z(), 0, 0, 0);
+         viewer.doAdvanceEventClock(50);
+      }
       //new CS480Task1Template();
    }
 
-   private final Viewer _viewer;
+
 
    // ---------------------------------------------------------------------------------------------------------------------------------------------------------
    public CS480Task1Template()
