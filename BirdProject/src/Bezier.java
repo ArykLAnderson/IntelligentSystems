@@ -39,6 +39,8 @@ public class Bezier {
          * Set the Orientations on the array of positions by pointing to the next position.
          * Last position maintains previous orientation
          */
+
+        //Generate initial line points
         ArrayList<Point> targetPoints = new ArrayList<>();
         for (int i = 0; i <= _numLines; i++) {
             targetPoints.add(new Point(((_random.nextDouble() * 1000) - 500),
@@ -46,16 +48,63 @@ public class Bezier {
                                        ((_random.nextDouble() * 500))));
         }
 
-        ArrayList<Position> positions = new ArrayList<>();
+        ArrayList<Point> positions = new ArrayList<>();
 
+        //Generate new points along that line
         for (int i = 0; i < targetPoints.size() - 1; i++) {
 
+            Point start = targetPoints.get(i);
+            Point end = targetPoints.get(i + 1);
+
+            Line wLine = new Line(start, end);
+            positions.add(start);
+
+            int numSteps = (int)(wLine.length() / _stepSize);
+            double stepSizeActual = wLine.length()/numSteps;
+            Line vector = wLine.unitVector();
+
+            for (int j = 0; j < numSteps - 1; j++) {
+
+                double x = wLine.startPoint().X() + vector.endPoint().X()*stepSizeActual*j;
+                double y = wLine.startPoint().Y() + vector.endPoint().Y()*stepSizeActual*j;
+                double z = wLine.startPoint().Z() + vector.endPoint().Z()*stepSizeActual*j;
+
+                positions.add(new Point(x, y, z));
+            }
+            positions.add(end);
         }
 
-        return null;
+        //Add noise to all the points generated so far
+        this.addNoise(positions);
+
+        //Generate Bezier curve points
+        ArrayList<Point> bezier = new ArrayList<>();
+
+        for (int i = 0; i < positions.size() - 2; i++) {
+
+            Line line1 = new Line(positions.get(i), positions.get(i + 1));
+            Line line2 = new Line(positions.get(i + 1), positions.get(i + 2));
+
+            for (double t = 0; t < 1; t += 0.2) {
+                if (i == 0) {
+                    bezier.add(this.generatePoint(line1.startPoint(), line1.endPoint(), line2.midPoint(), t));
+                }
+                else if (i == positions.size() - 3) {
+                    bezier.add(this.generatePoint(line1.midPoint(), line1.endPoint(), line2.endPoint(), t));
+                }
+                else {
+                    bezier.add(this.generatePoint(line1.midPoint(), line1.endPoint(), line2.midPoint(), t));
+                }
+            }
+        }
+
+        //Set bird orientations
+        ArrayList<Position> orientedPositions = this.setOrientations(bezier);
+
+        return orientedPositions;
     }
 
-    private void addNoise(ArrayList<Point> points, double degree) {
+    private void addNoise(ArrayList<Point> points) {
 
         for (int i = 0; i < points.size(); i++) {
 
@@ -68,12 +117,18 @@ public class Bezier {
         }
     }
 
-    private void setOrientations(ArrayList<Position> positions) {
+    private ArrayList<Position> setOrientations(ArrayList<Point> points) {
 
         /**
         * Set the Orientations on the array of positions by pointing to the next position.
         * Last position maintains previous orientation
         */
+        ArrayList<Position> wList = new ArrayList<>();
+        for (Point wPoint : points) {
+            wList.add(new Position(wPoint, null));
+        }
+
+        return wList; //WARNING THIS IS A STUB
     }
 
     private Point generatePoint(Point startPoint, Point midPoint, Point endPoint, double t) {
@@ -90,14 +145,14 @@ public class Bezier {
         double mz = midPoint.Z();
         double ez = endPoint.Z();
 
-        double x = getCoord(sx, mx, ex, t);
-        double y = getCoord(sy, my, ey, t);
-        double z = getCoord(sz, mz, ez, t);
+        double x = getCoordinate(sx, mx, ex, t);
+        double y = getCoordinate(sy, my, ey, t);
+        double z = getCoordinate(sz, mz, ez, t);
 
         return new Point(x, y, z);
     }
 
-    private double getCoord(double start, double mid, double end, double t) {
+    private double getCoordinate(double start, double mid, double end, double t) {
 
         //x = start * (1-t)^2 + mid * 2t(1 - t) + end * t^2
         return start * Math.pow((1 - t), 2) + mid*2*t*(1-t) + end*Math.pow(t, 2);

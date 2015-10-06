@@ -27,4 +27,8 @@ public class Position {
     public void setOrientation(Line orientation) {
         _orientation = orientation;
     }
+
+    public String toString() {
+        return "X: " + _location.X() + ", Y: " + _location.Y() + ", Z: " + _location.Z();
+    }
 }

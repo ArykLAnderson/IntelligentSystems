@@ -11,6 +11,14 @@ public class Line {
         _endPoint = endPoint;
     }
 
+    public Point startPoint() {
+        return _startPoint;
+    }
+
+    public Point endPoint() {
+        return _endPoint;
+    }
+
     public Point midPoint() {
         return _startPoint.midPoint(_endPoint);
     }

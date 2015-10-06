@@ -1,12 +1,19 @@
 import cs480viewer.task1.Viewer;
 
+import java.util.ArrayList;
+
 //=============================================================================================================================================================
 public class CS480Task1Template
 {
    // ---------------------------------------------------------------------------------------------------------------------------------------------------------
    public static void main(final String[] args)
    {
-      new CS480Task1Template();
+      Bezier generator = new Bezier(10, 10, true, 2);
+      ArrayList<Position> positions = generator.generateCurve();
+      for(Position position : positions) {
+         System.out.println(position);
+      }
+      //new CS480Task1Template();
    }
 
    private final Viewer _viewer;
