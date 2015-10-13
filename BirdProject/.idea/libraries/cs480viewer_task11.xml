@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="cs480viewer-task11">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/out/production/BirdProject/cs480viewer-task1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

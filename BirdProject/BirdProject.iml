@@ -7,6 +7,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="cs480viewer-task11" level="project" />
     <orderEntry type="library" name="cs480viewer-task1" level="project" />
     <orderEntry type="library" name="windows64" level="project" />
   </component>
